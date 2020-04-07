@@ -18,7 +18,7 @@ android {
         versionCode 75
         versionName "7.0.5"
 
-        applicationId "org.digitalcampus.mobile.learning"
+        applicationId "net.mesau.mobile.learning"
         minSdkVersion 14
         targetSdkVersion 29
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
