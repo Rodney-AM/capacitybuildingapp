@@ -147,19 +147,19 @@
         <service
             android:name="org.digitalcampus.oppia.service.DownloadService"
             android:exported="false"
-            android:icon="@drawable/dc_logo" />
+            android:icon="@mipmap/dc_moh" />
         <service
             android:name="org.digitalcampus.oppia.service.courseinstall.CourseInstallerService"
             android:exported="false"
-            android:icon="@drawable/dc_logo" />
+            android:icon="@mipmap/dc_moh" />
         <service
             android:name="org.digitalcampus.oppia.service.bluetooth.BluetoothTransferService"
             android:exported="false"
-            android:icon="@drawable/dc_logo" />
+            android:icon="@mipmap/dc_moh" />
         <service
             android:name="org.digitalcampus.oppia.gamification.GamificationService"
             android:exported="false"
-            android:icon="@drawable/dc_logo" />
+            android:icon="@mipmap/dc_moh" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
