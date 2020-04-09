@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE resources [
-    <!ENTITY appName "Open Deliver Covid-19">
+    <!ENTITY appName "Covid-19 Uganda">
     <!ENTITY companyName "Open Deliver Uganda"> ]>
 <resources>
     <string name="app_name">&appName;</string>
