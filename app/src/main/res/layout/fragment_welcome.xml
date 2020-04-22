@@ -36,7 +36,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:paddingRight="5dp"
-                app:srcCompat="@mipmap/dc_lmh_logo" />
+                app:srcCompat="@drawable/dc_logo" />
 
             <ImageView
                 android:id="@+id/imageViewMak"
