@@ -55,8 +55,6 @@ public class App extends Application {
 
     public static final String TAG = App.class.getSimpleName();
 
-    public static final int APP_LOGO = R.mipmap.dc_moh ;
-
     public static final String COURSE_XML = "module.xml";
     public static final String COURSE_TRACKER_XML = "tracker.xml";
     public static final String PRE_INSTALL_COURSES_DIR = "www/preload/courses"; // don't include leading or trailing slash
@@ -133,7 +131,7 @@ public class App extends Application {
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(new CalligraphyInterceptor(
                         new CalligraphyConfig.Builder()
-                                .setDefaultFontPath("fonts/gilroy-regular.otf")
+                                .setDefaultFontPath("fonts/lato.ttf")
                                 .setFontAttrId(R.attr.fontPath)
                                 .build()))
                 .build());
