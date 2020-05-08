@@ -15,11 +15,11 @@ android {
     buildToolsVersion '29.0.2'
 
     defaultConfig {
-        versionCode 76
-        versionName "7.1.0"
+        versionCode 78
+        versionName "7.1.2"
 
         applicationId "ug.go.health.mobile.covid19"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 29
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
