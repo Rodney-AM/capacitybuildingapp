@@ -26,10 +26,13 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatSpinner;
 
 import org.digitalcampus.mobile.learning.BuildConfig;
 import org.digitalcampus.mobile.learning.R;
@@ -86,6 +89,8 @@ public class RegisterFragment extends AppFragment implements SubmitListener, Reg
 	@Inject
 	ApiEndpoint apiEndpoint;
 
+	private AppCompatSpinner jobTitleSpinner;
+
 
 	public static RegisterFragment newInstance() {
 	    return new RegisterFragment();
@@ -110,6 +115,27 @@ public class RegisterFragment extends AppFragment implements SubmitListener, Reg
 		registerButton = vv.findViewById(R.id.register_btn);
 		loginButton = vv.findViewById(R.id.action_login_btn);
 		customFieldsContainer = vv.findViewById(R.id.custom_fields_container);
+		jobTitleSpinner = vv.findViewById(R.id.register_form_jobtitle_spinner);
+
+		jobTitleField.setEnabled(false);
+		ArrayAdapter<CharSequence> jobsAdapter = ArrayAdapter.createFromResource(this.getActivity(),
+				R.array.job_titles, android.R.layout.simple_spinner_item);
+		jobsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		jobTitleSpinner.setAdapter(jobsAdapter);
+		jobTitleSpinner.setSelection(11);
+		jobTitleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+				String job = jobTitleSpinner.getSelectedItem().toString();
+				jobTitleField.setText(job);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> adapterView) {
+				jobTitleField.setText("");
+			}
+		});
+
 
 		fields.addAll(Arrays.asList(usernameField,  passwordField, passwordAgainField,
 				firstnameField, lastnameField));
