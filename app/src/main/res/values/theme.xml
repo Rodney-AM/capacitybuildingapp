@@ -8,7 +8,7 @@
     <color name="theme_secondary_light">@color/cha_emerald</color>
 
     <!-- Drawables for app icon and course default image -->
-    <item name="app_icon" type="drawable">@drawable/dc_logo</item>
+    <item name="app_icon" type="drawable">@drawable/dc_moh_logo</item>
     <item name="course_icon_placeholder" type="drawable">@drawable/default_course</item>
 
     <!-- Color used for dropdown menus and list tints, it is "theme_secondary_light" with transparency -->
