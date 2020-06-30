@@ -21,8 +21,7 @@
     <!-- Toolbar -->
     <color name="toolbar_bg_color">@color/black</color>
     <color name="toolbar_icon_color">@color/white</color>
-    <color name="statusbar_color">@color/black</color>
-    <color name="subtitle_bar">@color/theme_primary</color>
+    <color name="statusbar_color">@color/theme_primary</color>
 
 
     <color name="drawer_bg">@color/black</color>

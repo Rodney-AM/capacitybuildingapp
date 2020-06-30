@@ -3,22 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/black">
+    android:background="@color/theme_secondary_light">
 
     <ImageView
-        android:id="@+id/header"
+        android:id="@+id/imageView8"
         android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_gravity="top"
+        android:padding="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/drawer_header_bg" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:adjustViewBounds="true"
-        android:src="@drawable/dc_moh_logo" />
+        android:layout_above="@+id/view_user_info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/brand_icon" />
 
     <RelativeLayout
         android:id="@+id/view_user_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
-        android:background="@color/theme_primary"
+        android:layout_alignBottom="@+id/imageView8"
+        android:background="@color/theme_secondary_light"
         android:paddingLeft="15dp"
         android:paddingTop="5dp"
         android:paddingRight="15dp"
