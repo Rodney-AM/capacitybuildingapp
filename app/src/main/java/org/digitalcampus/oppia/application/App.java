@@ -41,6 +41,7 @@ import org.digitalcampus.oppia.database.MyDatabase;
 import org.digitalcampus.oppia.di.AppComponent;
 import org.digitalcampus.oppia.di.AppModule;
 import org.digitalcampus.oppia.di.DaggerAppComponent;
+import org.digitalcampus.oppia.service.NoCourseWorker;
 import org.digitalcampus.oppia.service.TrackerWorker;
 import org.digitalcampus.oppia.utils.storage.Storage;
 import org.digitalcampus.oppia.utils.storage.StorageAccessStrategy;
@@ -111,6 +112,7 @@ public class App extends Application {
     // only used in case a course doesn't have any lang specified
     public static final String DEFAULT_LANG = "en";
     private static final String NAME_TRACKER_SEND_WORK = "tracker_send_work";
+    private static final String NAME_NO_COURSE_WORKER = "no_course_worker";
 
     private AppComponent appComponent;
     private static MyDatabase db;
@@ -188,8 +190,10 @@ public class App extends Application {
 
         if (backgroundData) {
             scheduleTrackerWork();
+            scheduleNoCourseNotification();
         } else {
             cancelTrackerWork();
+            cancleNoCourseNotification();
         }
     }
 
@@ -213,6 +217,24 @@ public class App extends Application {
     public void cancelTrackerWork() {
 
         WorkManager.getInstance(this).cancelUniqueWork(NAME_TRACKER_SEND_WORK);
+    }
+
+    private void scheduleNoCourseNotification(){
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+
+        PeriodicWorkRequest trackerSendWork = new PeriodicWorkRequest.Builder(NoCourseWorker.class, 2, TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .setInitialDelay(2, TimeUnit.MINUTES)
+                .build();
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(NAME_NO_COURSE_WORKER,
+                ExistingPeriodicWorkPolicy.REPLACE, trackerSendWork);
+
+    }
+
+    public void cancleNoCourseNotification(){
+        WorkManager.getInstance(this).cancelUniqueWork(NAME_NO_COURSE_WORKER);
     }
 
     public static SharedPreferences getPrefs(Context context) {
