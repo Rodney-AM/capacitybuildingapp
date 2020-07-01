@@ -9,6 +9,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.work.ListenableWorker;
+import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import androidx.work.impl.utils.futures.SettableFuture;
 
@@ -24,44 +25,13 @@ import org.digitalcampus.oppia.utils.ui.OppiaNotificationUtils;
 
 import java.util.List;
 
-public class NoCourseWorker extends ListenableWorker {
-
-
+public class NoCourseWorker extends Worker {
     private static final String TAG =NoCourseWorker.class.getSimpleName() ;
-    private SettableFuture<Result> future;
 
-    /**
-     * @param appContext   The application {@link Context}
-     * @param workerParams Parameters to setup the internal state of this worker
-     */
-    public NoCourseWorker(@NonNull Context appContext, @NonNull WorkerParameters workerParams) {
-        super(appContext, workerParams);
+    public NoCourseWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+        super(context, workerParams);
     }
 
-    @SuppressLint("RestrictedApi")
-    @NonNull
-    @Override
-    public ListenableFuture<Result> startWork() {
-        Log.i(TAG, "startWork");
-
-        future = SettableFuture.create();
-
-        boolean isLoggedIn = SessionManager.isLoggedIn(getApplicationContext());
-        if (isLoggedIn) {
-            sendNoCourseNotification();
-        } else {
-            Log.i(TAG, "startWork: user not logged in. exiting TrakerWorker");
-            future.set(Result.success());
-        }
-
-        return future;
-    }
-
-    @Override
-    public void onStopped() {
-        super.onStopped();
-        Log.i(TAG, "onStopped");
-    }
 
     private void sendNoCourseNotification() {
         DbHelper db = DbHelper.getInstance(getApplicationContext());
@@ -84,5 +54,20 @@ public class NoCourseWorker extends ListenableWorker {
 
     private String getString(int stringId) {
         return getApplicationContext().getString(stringId);
+    }
+
+    @NonNull
+    @Override
+    public Result doWork() {
+        boolean isLoggedIn = SessionManager.isLoggedIn(getApplicationContext());
+        if (isLoggedIn){
+            sendNoCourseNotification();
+            Log.d(TAG, "doWork: Work is done");
+            return Result.success();
+        } else {
+            Log.i(TAG, "startWork: user not logged in. exiting TrakerWorker");
+            return Result.failure();
+        }
+
     }
 }
