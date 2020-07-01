@@ -65,15 +65,15 @@ public class NoCourseWorker extends ListenableWorker {
 
     private void sendNoCourseNotification() {
         DbHelper db = DbHelper.getInstance(getApplicationContext());
-        List<Course> courses;
-        if (true){
+        List<Course> courses = db.getAllCourses();
+        if (courses.isEmpty()){
             Intent resultIntent = new Intent(getApplicationContext(), TagSelectActivity.class);
             PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplicationContext(), 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             NotificationCompat.Builder mBuilder = OppiaNotificationUtils.getBaseBuilder(getApplicationContext(), true);
             mBuilder
                     .setContentTitle(getString(R.string.notification_course_download_title))
-                    .setContentText(getString(R.string.notification_course_download_title))
+                    .setContentText(getString(R.string.notification_course_download_text))
                     .setContentIntent(resultPendingIntent);
             int mId = 002;
 

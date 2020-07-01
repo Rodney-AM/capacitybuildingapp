@@ -224,9 +224,9 @@ public class App extends Application {
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
 
-        PeriodicWorkRequest trackerSendWork = new PeriodicWorkRequest.Builder(NoCourseWorker.class, 2, TimeUnit.MINUTES)
+        PeriodicWorkRequest trackerSendWork = new PeriodicWorkRequest.Builder(NoCourseWorker.class, 15, TimeUnit.MINUTES)
                 .setConstraints(constraints)
-                .setInitialDelay(2, TimeUnit.MINUTES)
+                .setInitialDelay(15, TimeUnit.MINUTES)
                 .build();
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(NAME_NO_COURSE_WORKER,
                 ExistingPeriodicWorkPolicy.REPLACE, trackerSendWork);
