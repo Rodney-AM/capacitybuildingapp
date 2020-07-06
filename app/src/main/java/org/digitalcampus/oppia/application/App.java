@@ -31,7 +31,10 @@ import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import org.digitalcampus.mobile.learning.BuildConfig;
 import org.digitalcampus.mobile.learning.R;
@@ -48,6 +51,7 @@ import org.digitalcampus.oppia.utils.storage.StorageAccessStrategy;
 import org.digitalcampus.oppia.utils.storage.StorageAccessStrategyFactory;
 import org.digitalcampus.oppia.utils.ui.OppiaNotificationUtils;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
@@ -175,7 +179,6 @@ public class App extends Application {
         Log.d(TAG, "Storage option set: " + storageOption);
 
         setupPeriodicTrackerWorker();
-
         OppiaNotificationUtils.initializeOreoNotificationChannels(this);
 
     }
@@ -224,9 +227,9 @@ public class App extends Application {
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
 
-        PeriodicWorkRequest trackerSendWork = new PeriodicWorkRequest.Builder(NoCourseWorker.class, 30, TimeUnit.MINUTES)
+        PeriodicWorkRequest trackerSendWork = new PeriodicWorkRequest.Builder(NoCourseWorker.class, 12, TimeUnit.HOURS)
                 .setConstraints(constraints)
-                .setInitialDelay(30, TimeUnit.MINUTES)
+                .setInitialDelay(5, TimeUnit.MINUTES)
                 .build();
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(NAME_NO_COURSE_WORKER,
                 ExistingPeriodicWorkPolicy.REPLACE, trackerSendWork);

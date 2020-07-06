@@ -9,14 +9,12 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.work.ListenableWorker;
-import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import androidx.work.impl.utils.futures.SettableFuture;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
 import org.digitalcampus.mobile.learning.R;
-import org.digitalcampus.oppia.activity.DownloadActivity;
 import org.digitalcampus.oppia.activity.TagSelectActivity;
 import org.digitalcampus.oppia.application.SessionManager;
 import org.digitalcampus.oppia.database.DbHelper;
@@ -25,11 +23,32 @@ import org.digitalcampus.oppia.utils.ui.OppiaNotificationUtils;
 
 import java.util.List;
 
-public class NoCourseWorker extends Worker {
+public class NoCourseWorker extends ListenableWorker {
     private static final String TAG =NoCourseWorker.class.getSimpleName() ;
+    private SettableFuture<Result> future;
 
     public NoCourseWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
+    }
+
+    @SuppressLint("RestrictedApi")
+    @NonNull
+    @Override
+    public ListenableFuture<Result> startWork() {
+        Log.i(TAG, "startWork");
+
+        future = SettableFuture.create();
+
+        boolean isLoggedIn = SessionManager.isLoggedIn(getApplicationContext());
+        if (isLoggedIn) {
+            sendNoCourseNotification();
+            future.set(Result.success());
+        } else {
+            Log.i(TAG, "startWork: user not logged in. exiting TrakerWorker");
+            future.set(Result.success());
+        }
+
+        return future;
     }
 
 
@@ -56,18 +75,10 @@ public class NoCourseWorker extends Worker {
         return getApplicationContext().getString(stringId);
     }
 
-    @NonNull
     @Override
-    public Result doWork() {
-        boolean isLoggedIn = SessionManager.isLoggedIn(getApplicationContext());
-        if (isLoggedIn){
-            sendNoCourseNotification();
-            Log.d(TAG, "doWork: Work is done");
-            return Result.success();
-        } else {
-            Log.i(TAG, "startWork: user not logged in. exiting TrakerWorker");
-            return Result.failure();
-        }
-
+    public void onStopped() {
+        super.onStopped();
+        Log.i(TAG, "onStopped");
     }
+
 }

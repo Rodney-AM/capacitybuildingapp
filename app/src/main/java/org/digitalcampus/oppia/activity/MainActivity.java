@@ -14,6 +14,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
@@ -29,6 +34,8 @@ import org.digitalcampus.oppia.model.Course;
 import org.digitalcampus.oppia.model.CoursesRepository;
 import org.digitalcampus.oppia.model.Lang;
 import org.digitalcampus.oppia.model.User;
+import org.digitalcampus.oppia.service.NoCourseWorker;
+import org.digitalcampus.oppia.service.TrackerWorker;
 import org.digitalcampus.oppia.utils.ConnectionUtils;
 import org.digitalcampus.oppia.utils.UIUtils;
 import org.digitalcampus.oppia.utils.ui.DrawerMenuManager;
@@ -38,6 +45,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -51,6 +59,8 @@ public class MainActivity extends AppActivity implements BottomNavigationView.On
     private View viewProfileOptions;
     private MenuItem searchMenuItem;
     private TextView tvBadgeNumber;
+
+    private static final String NAME_NO_COURSE_WORKER = "no_course_worker";
 
     @Inject
     CoursesRepository coursesRepository;
