@@ -141,7 +141,7 @@ public class MainActivity extends AppActivity implements BottomNavigationView.On
     public boolean onPrepareOptionsMenu(Menu menu) {
 
         Map<Integer, DrawerMenuManager.MenuOption> options = getMenuOptions();
-        drawer.onPrepareOptionsMenu(menu, options);
+        drawer.onPrepareOptionsMenu(options);
 
         configureSearchButtonVisibility(navBottomView.getSelectedItemId());
 
@@ -197,7 +197,7 @@ public class MainActivity extends AppActivity implements BottomNavigationView.On
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        drawer.onPostCreate(savedInstanceState);
+        drawer.onPostCreate();
     }
 
     @Override

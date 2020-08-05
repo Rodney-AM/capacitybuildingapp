@@ -3,7 +3,6 @@ package org.digitalcampus.oppia.utils.ui.fields;
 import android.content.Context;
 import android.util.TypedValue;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -57,7 +56,6 @@ public class ValidableSwitchLayout extends LinearLayout implements ValidableFiel
         if (required && input != null){
             this.input.setHint(input.getHint() + " *");
         }
-
     }
 
     @Override
@@ -85,7 +83,6 @@ public class ValidableSwitchLayout extends LinearLayout implements ValidableFiel
             this.addView(helperText);
         }
         helperText.setText(text);
-
     }
 
     @Override
@@ -96,11 +93,7 @@ public class ValidableSwitchLayout extends LinearLayout implements ValidableFiel
 
     @Override
     public void setChangeListener(final onChangeListener listener) {
-        input.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                listener.onValueChanged(input.isChecked() ? "true" : null);
-            }
-        });
+        input.setOnCheckedChangeListener((compoundButton, checked) ->
+                listener.onValueChanged(input.isChecked() ? "true" : null));
     }
 }
