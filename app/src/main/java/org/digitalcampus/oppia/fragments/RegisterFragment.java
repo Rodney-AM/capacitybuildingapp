@@ -218,15 +218,15 @@ public class RegisterFragment extends AppFragment implements SubmitListener, Reg
 		// check password
 		valid = checkPasswordCriteria(valid, password, passwordAgain);
 
-		// check phone no - comment out since phone is not required
-//		if (phoneNo.length() < 8) {
-//            phoneNoField.setErrorEnabled(true);
-//            phoneNoField.setError(getString(R.string.error_register_no_phoneno ));
-//			if (valid){
-//				phoneNoField.requestFocus();
-//			}
-//			valid = false;
-//		}
+		// check phone 
+		if (phoneNo.length() < 8) {
+            phoneNoField.setErrorEnabled(true);
+            phoneNoField.setError(getString(R.string.error_register_no_phoneno ));
+			if (valid){
+				phoneNoField.requestFocus();
+			}
+			valid = false;
+		}
 
 		if (valid){
             User u = new User();
