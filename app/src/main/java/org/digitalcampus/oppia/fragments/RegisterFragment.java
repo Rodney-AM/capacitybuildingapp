@@ -1,16 +1,16 @@
-/* 
+/*
  * This file is part of OppiaMobile - https://digital-campus.org/
- * 
+ *
  * OppiaMobile is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * OppiaMobile is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with OppiaMobile. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,13 +25,10 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatSpinner;
 
 import org.digitalcampus.mobile.learning.BuildConfig;
 import org.digitalcampus.mobile.learning.R;
@@ -88,11 +85,9 @@ public class RegisterFragment extends AppFragment implements SubmitListener, Reg
 	@Inject
 	ApiEndpoint apiEndpoint;
 
-	private AppCompatSpinner jobTitleSpinner;
-
 
 	public static RegisterFragment newInstance() {
-	    return new RegisterFragment();
+		return new RegisterFragment();
 	}
 
 	public RegisterFragment(){
@@ -114,30 +109,9 @@ public class RegisterFragment extends AppFragment implements SubmitListener, Reg
 		registerButton = vv.findViewById(R.id.register_btn);
 		loginButton = vv.findViewById(R.id.action_login_btn);
 		customFieldsContainer = vv.findViewById(R.id.custom_fields_container);
-		jobTitleSpinner = vv.findViewById(R.id.register_form_jobtitle_spinner);
 
-		jobTitleField.setEnabled(false);
-		ArrayAdapter<CharSequence> jobsAdapter = ArrayAdapter.createFromResource(this.getActivity(),
-				R.array.job_titles, android.R.layout.simple_spinner_item);
-		jobsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		jobTitleSpinner.setAdapter(jobsAdapter);
-		jobTitleSpinner.setSelection(11);
-		jobTitleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-				String job = jobTitleSpinner.getSelectedItem().toString();
-				jobTitleField.setText(job);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> adapterView) {
-				jobTitleField.setText("");
-			}
-		});
-
-
-		fields.addAll(Arrays.asList(usernameField,  passwordField, passwordAgainField,
-				firstnameField, lastnameField));
+		fields.addAll(Arrays.asList(usernameField, passwordField, passwordAgainField,
+				firstnameField, lastnameField, phoneNoField));
 
 		return vv;
 	}
@@ -165,14 +139,14 @@ public class RegisterFragment extends AppFragment implements SubmitListener, Reg
 		pDialog.dismiss();
 		if (response.isResult()) {
 			User user = (User) response.getData().get(0);
-            SessionManager.loginUser(getActivity(), user);
+			SessionManager.loginUser(getActivity(), user);
 			// registration gamification
 			GamificationEngine gamificationEngine = new GamificationEngine(super.getActivity());
 			gamificationEngine.processEventRegister();
-            //Save the search tracker
-            new Tracker(super.getActivity()).saveRegisterTracker();
-	    	startActivity(new Intent(getActivity(), MainActivity.class));
-	    	super.getActivity().finish();
+			//Save the search tracker
+			new Tracker(super.getActivity()).saveRegisterTracker();
+			startActivity(new Intent(getActivity(), MainActivity.class));
+			super.getActivity().finish();
 		} else {
 			Context ctx = super.getActivity();
 			if (ctx != null){
@@ -205,43 +179,43 @@ public class RegisterFragment extends AppFragment implements SubmitListener, Reg
 		}
 		valid = fieldsManager.validateFields() && valid;
 
-//		If the rest of email validations passed, check that the email is valid - comment out since email is not required
-//		if (emailField.validate() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-//			emailField.setErrorEnabled(true);
-//			emailField.setError(getString(R.string.error_register_email));
-//			if (valid){
-//				emailField.requestFocus();
-//			}
-//			valid = false;
-//		}
+		//If the rest of email validations passed, check that the email is valid
+		/*if (emailField.validate() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+			emailField.setErrorEnabled(true);
+			emailField.setError(getString(R.string.error_register_email));
+			if (valid){
+				emailField.requestFocus();
+			}
+			valid = false;
+		}*/
 
 		// check password
 		valid = checkPasswordCriteria(valid, password, passwordAgain);
 
-		// check phone 
-		if (phoneNo.length() < 8) {
+		// check phone no
+		/*if (phoneNo.length() < 8) {
             phoneNoField.setErrorEnabled(true);
             phoneNoField.setError(getString(R.string.error_register_no_phoneno ));
 			if (valid){
 				phoneNoField.requestFocus();
 			}
 			valid = false;
-		}
+		}*/
 
 		if (valid){
-            User u = new User();
-            u.setUsername(username);
-            u.setPassword(password);
-            u.setPasswordAgain(passwordAgain);
-            u.setFirstname(firstname);
-            u.setLastname(lastname);
-            u.setEmail(email);
-            u.setJobTitle(jobTitle);
-            u.setOrganisation(organisation);
-            u.setPhoneNo(phoneNo);
+			User u = new User();
+			u.setUsername(username);
+			u.setPassword(password);
+			u.setPasswordAgain(passwordAgain);
+			u.setFirstname(firstname);
+			u.setLastname(lastname);
+			u.setEmail(email);
+			u.setJobTitle(jobTitle);
+			u.setOrganisation(organisation);
+			u.setPhoneNo(phoneNo);
 			u.setUserCustomFields(fieldsManager.getCustomFieldValues());
-            executeRegisterTask(u);
-        }
+			executeRegisterTask(u);
+		}
 
 	}
 
