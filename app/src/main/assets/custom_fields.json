@@ -51,7 +51,7 @@
       "name":"name_of_work_place",
       "label":"Name of health facility or organization",
       "order":6,
-      "required":true,
+      "required":false,
       "helper_text":"Name of health facility, organization, or institution where you work",
       "type":"str"
     },
