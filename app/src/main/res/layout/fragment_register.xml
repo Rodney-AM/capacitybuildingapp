@@ -70,6 +70,7 @@
                         android:hint="@string/register_form_password_title"
                         android:inputType="textPassword"
                         android:textSize="15sp"/>
+
                 </org.digitalcampus.oppia.utils.ui.fields.ValidableTextInputLayout>
 
                 <org.digitalcampus.oppia.utils.ui.fields.ValidableTextInputLayout
