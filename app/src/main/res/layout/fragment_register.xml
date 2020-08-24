@@ -114,7 +114,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/register_form_firstname_title"
-                        android:inputType="text"
+                        android:inputType = "textCapWords"
                         android:textSize="15sp"/>
                 </org.digitalcampus.oppia.utils.ui.fields.ValidableTextInputLayout>
 
@@ -128,7 +128,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/register_form_lastname_title"
-                        android:inputType="text"
+                        android:inputType = "textCapWords"
                         android:textSize="15sp"/>
                 </org.digitalcampus.oppia.utils.ui.fields.ValidableTextInputLayout>
 

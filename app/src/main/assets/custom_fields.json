@@ -211,14 +211,14 @@
     {
       "collection_name": "professions",
       "items": [
-        {"id": "community_health_extension_worker", "value": "Community Health Extension Worker"},
+        {"id": "community_health_worker", "value": "Community Health Worker"},
         {"id": "environment_health_officer", "value": "Environment Health Officer"},
         {"id": "health_officer", "value": "Health Officer"},
         {"id": "laboratory_officer", "value": "Laboratory Officer"},
         {"id": "midwife", "value": "Midwife"},
         {"id": "nurse", "value": "Nurse"},
         {"id": "pharmacist", "value": "Pharmacist"},
-        {"id": "physician", "value": "Physician"},
+        {"id": "medical_doctor", "value": "Medical Doctor (General or Specialist)"},
         {"id": "program_manager_or_implementer", "value": "Program Manager Or Implementer"},
         {"id": "public_health_officer", "value": "Public Health Officer"},
         {"id": "researcher", "value": "Researcher"},
