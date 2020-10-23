@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import com.splunk.mint.Mint;
 
 import org.digitalcampus.oppia.database.DbHelper;
-import org.digitalcampus.oppia.utils.storage.StorageUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +25,9 @@ public class CustomField {
     private static final String TYPE_FLOAT = "float";
     private static final String TYPE_CHOICES = "choices";
 
+    private static final String STR_ORDER = "order";
+
+    private static final String STR_HELPER_TEXT = "helper_text";
     private String key;
     private String label;
     private boolean required;
@@ -115,6 +117,10 @@ public class CustomField {
         return !TextUtils.isEmpty(fieldVisibleBy);
     }
 
+    public boolean isNegativeDependency(){
+        return !TextUtils.isEmpty(valueVisibleBy) && valueVisibleBy.startsWith("!");
+    }
+
     public String getFieldVisibleBy() {
         return fieldVisibleBy;
     }
@@ -138,8 +144,7 @@ public class CustomField {
     public boolean isChoices(){ return TextUtils.equals(type, TYPE_CHOICES); }
     public boolean isExportedAsString(){ return isString() || isChoices(); }
 
-    public static void loadCustomFieldsFromAssets(Context ctx, String filename){
-        String data = StorageUtils.readFileFromAssets(ctx, filename);
+    public static void loadCustomFields(Context ctx, String data){
         if (TextUtils.isEmpty(data)){
             return;
         }
@@ -169,17 +174,50 @@ public class CustomField {
         }
     }
 
+    public static List<RegisterFormStep> parseRegisterSteps(String data){
+        ArrayList<RegisterFormStep> steps = new ArrayList<>();
+        try {
+            JSONObject json = new JSONObject(data);
+            JSONArray regSteps = json.getJSONArray("register_steps");
+            for (int i = 0; i<regSteps.length(); i++){
+                JSONObject regStep = regSteps.getJSONObject(i);
+                RegisterFormStep step = new RegisterFormStep();
+                step.setTitle(regStep.getString("title"));
+                step.setOrder(regStep.getInt(STR_ORDER));
+                if (regStep.has(STR_HELPER_TEXT)){
+                    step.setHelperText(regStep.getString(STR_HELPER_TEXT));
+                }
+                if (regStep.has("conditional_byfield")){
+                    step.setConditionalByField(regStep.getString("conditional_byfield"));
+                    if (regStep.has("conditional_byvalue")){
+                        step.setConditionalByValue(regStep.getString("conditional_byvalue"));
+                    }
+                }
+                JSONArray fields = regStep.getJSONArray("fields");
+                List<String> f = new ArrayList<>();
+                for (int j = 0; j<fields.length(); j++){
+                    f.add(fields.getString(j));
+                }
+                step.setFields(f);
+                steps.add(step);
+            }
+        } catch (JSONException e) {
+            Mint.logException(e);
+        }
+        return steps;
+    }
+
     private static CustomField parseField(JSONObject f) throws JSONException {
         CustomField field = new CustomField();
         field.setKey(f.getString("name"));
         field.setLabel(f.getString("label"));
         field.setRequired(f.getBoolean("required"));
         field.setType(f.getString("type"));
-        if (f.has("helper_text")){
-            field.setHelperText(f.getString("helper_text"));
+        if (f.has(STR_HELPER_TEXT)){
+            field.setHelperText(f.getString(STR_HELPER_TEXT));
         }
-        if (f.has("order")){
-            field.setOrder(f.getInt("order"));
+        if (f.has(STR_ORDER)){
+            field.setOrder(f.getInt(STR_ORDER));
         }
         if (f.has("collection")){
             field.setCollectionName(f.getString("collection"));
@@ -195,6 +233,7 @@ public class CustomField {
         }
         return field;
     }
+
 
     private static void insertCollection(DbHelper db, JSONObject collection){
         try {
@@ -247,6 +286,64 @@ public class CustomField {
         @Override
         public int hashCode(){
             return key.hashCode();
+        }
+    }
+
+    public static class RegisterFormStep {
+
+        private int order;
+        private String title;
+        private String helperText;
+        private String conditionalByField;
+        private String conditionalByValue;
+        private List<String> fields;
+
+        public int getOrder() {
+            return order;
+        }
+
+        public void setOrder(int order) {
+            this.order = order;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getHelperText() {
+            return helperText;
+        }
+
+        public void setHelperText(String helperText) {
+            this.helperText = helperText;
+        }
+
+        public String getConditionalByField() {
+            return conditionalByField;
+        }
+
+        public void setConditionalByField(String conditionalByField) {
+            this.conditionalByField = conditionalByField;
+        }
+
+        public String getConditionalByValue() {
+            return conditionalByValue;
+        }
+
+        public void setConditionalByValue(String conditionalByValue) {
+            this.conditionalByValue = conditionalByValue;
+        }
+
+        public List<String> getFields() {
+            return fields;
+        }
+
+        public void setFields(List<String> fields) {
+            this.fields = fields;
         }
     }
 }
