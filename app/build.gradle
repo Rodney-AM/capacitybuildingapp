@@ -15,7 +15,7 @@ android {
     buildToolsVersion '29.0.2'
 
     defaultConfig {
-        versionCode 80
+        versionCode 81
         versionName "7.1.4"
 
         applicationId "ug.go.health.mobile.covid19"
