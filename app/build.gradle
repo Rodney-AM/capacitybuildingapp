@@ -3,7 +3,7 @@ plugins {
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'jacoco-android'
+apply plugin: "com.hiya.jacoco-android"
 
 repositories {
     maven { url "https://mint.splunk.com/gradle/" }
@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         versionCode 81
-        versionName "7.1.4"
+        versionName "7.1.5"
 
         applicationId "ug.go.health.mobile.covid19"
         minSdkVersion 21
@@ -41,7 +41,6 @@ android {
         checkReleaseBuilds true
         // Disable checks for String translations
         disable 'MissingTranslation', 'ExtraTranslation'
-        abortOnError false
     }
 
     // Configure to use Java8 features like try-with-resources
@@ -111,6 +110,7 @@ android {
             resValue "string", "START_COURSEINDEX_COLLAPSED", runtimeProps['START_COURSEINDEX_COLLAPSED']
             resValue "string", "prefServerDefault", runtimeProps['OPPIA_SERVER_DEFAULT']
             resValue "string", "oppiaServerHost", runtimeProps['OPPIA_SERVER_HOST']
+            resValue "string", "oppiaServerDomain", runtimeProps['OPPIA_SERVER_DOMAIN']
             resValue "string", "prefAdminPasswordDefault", runtimeProps['ADMIN_PROTECT_INITIAL_PASSWORD']
             resValue "string", "prefGamificationPointsAnimationDefault", runtimeProps['GAMIFICATION_POINTS_ANIMATION']
             resValue "string", "prefDurationGamificationPointsViewDefault", runtimeProps['DURATION_GAMIFICATION_POINTS_VIEW']
@@ -151,7 +151,7 @@ android {
 
     useLibrary 'android.test.mock'
 
-    viewBinding.enabled = true
+    android.buildFeatures.viewBinding = true
 }
 
 // Setup Jacoco version. It's recommended way to exclude conflicts between components
