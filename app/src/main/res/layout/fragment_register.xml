@@ -179,12 +179,14 @@
                 <org.digitalcampus.oppia.utils.ui.fields.ValidableTextInputLayout
                     android:id="@+id/register_form_organisation_field"
                     style="@style/Oppia.CustomField.TextInputLayout"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/margin_medium">
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/register_form_organisation_title"
+                        android:visibility="gone"
                         android:inputType="text"
                         android:textSize="15sp" />
                 </org.digitalcampus.oppia.utils.ui.fields.ValidableTextInputLayout>
@@ -192,12 +194,14 @@
                 <org.digitalcampus.oppia.utils.ui.fields.ValidableTextInputLayout
                     android:id="@+id/register_form_jobtitle_field"
                     style="@style/Oppia.CustomField.TextInputLayout"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/margin_medium">
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/register_form_jobtitle_title"
+                        android:visibility="gone"
                         android:inputType="text"
                         android:textSize="15sp" />
 

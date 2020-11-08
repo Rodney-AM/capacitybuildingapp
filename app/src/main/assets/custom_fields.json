@@ -53,12 +53,25 @@
       "order":6,
       "required":false,
       "helper_text":"Name of health facility, organization, or institution where you work",
+      "visible_byfield":"primary_place_of_work",
+      "visible_byvalue":"!not_currently_working",
       "type":"str"
+    },
+    {
+      "name":"describe_area_of_work",
+      "label":"Which best describes the area where you work?",
+      "order":7,
+      "required":true,
+      "helper_text":"Area where you work",
+      "visible_byfield":"primary_place_of_work",
+      "visible_byvalue":"!not_currently_working",
+      "collection":"area",
+      "type":"choices"
     },
     {
       "name":"gender",
       "label":"Gender",
-      "order":7,
+      "order":8,
       "required":true,
       "helper_text":"",
       "collection":"genders",
@@ -222,7 +235,8 @@
         {"id": "program_manager_or_implementer", "value": "Program Manager Or Implementer"},
         {"id": "public_health_officer", "value": "Public Health Officer"},
         {"id": "researcher", "value": "Researcher"},
-        {"id": "student", "value": "Student"},
+        {"id": "student_medical_or_health_filed", "value": "Student - studying in medical or health field"},
+        {"id": "student_other_non_health_field", "value": "Student - other non-health field"},
         {"id": "other_health_care_provider", "value": "Other Health Care Provider"},
         {"id": "other_public_health_professional", "value": "Other Public Health Professional"},
         {"id": "other_specify", "value": "Other (please specify):"},
@@ -234,6 +248,7 @@
       "items": [
         {"id": "academic_institution", "value": "Academic Institution"},
         {"id": "civil_society_organization", "value": "Civil Society Organization"},
+        {"id": "community", "value": "Community"},
         {"id": "government_office", "value": "Government Office"},
         {"id": "health_center", "value": "Health Center"},
         {"id": "health_post", "value": "Health Post"},
@@ -251,6 +266,14 @@
       ]
     },
     {
+      "collection_name": "area",
+      "items" : [
+        {"id": "urban", "value":"Urban"},
+        {"id": "peri_urban", "value":"Peri-urban / Suburban"},
+        {"id": "rural", "value":"Rural"}
+      ]
+    },
+    {
       "collection_name": "genders",
       "items": [
         {"id": "female", "value":"Female"},
@@ -258,5 +281,44 @@
         {"id": "Prefer_not_to_say", "value": "Prefer not to say"}
       ]
     }
+  ],
+  "register_steps": [
+    {
+      "order": 1,
+      "title":"First step",
+      "helper_text":"Please enter your user details and press on the \"Next\" button.",
+      "fields":[
+        "username",
+        "password",
+        "passwordagain",
+        "email",
+        "first_name",
+        "last_name",
+        "phoneno",
+        "gender"
+      ]
+    },
+    {
+      "order": 2,
+      "title":"Region and District",
+      "helper_text":"Please select your region and District",
+      "fields":[
+        "region",
+        "district"
+      ]
+    },
+    {
+      "order": 3,
+      "title":"Proffesional Information",
+      "helper_text":"Please select your proffestion, job title and work place",
+      "fields":[
+        "profession",
+        "profession_other",
+        "primary_place_of_work",
+        "name_of_work_place",
+        "describe_area_of_work"
+      ]
+    }
+
   ]
 }
