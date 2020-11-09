@@ -11,18 +11,29 @@
       "collection": "regions"
     },
     {
+      "name":"region_other",
+      "label":"Region - Other(Specify country)",
+      "order":2,
+      "required":true,
+      "helper_text":"",
+      "visible_byfield":"region",
+      "visible_byvalue":"other_region",
+      "type":"str"
+    },
+    {
       "name": "district",
       "label": "District",
-      "order": 2,
-      "required":true,
+      "order": 3,
+      "required":false,
       "visible_byfield":"region",
       "collection_byfield":"region",
+      "visible_byvalue":"!other_region",
       "type":"choices"
     },
     {
       "name": "profession",
       "label": "Profession",
-      "order": 3,
+      "order": 4,
       "required":true,
       "helper_text": "",
       "type": "choices",
@@ -31,7 +42,7 @@
     {
       "name":"profession_other",
       "label":"Profession - Other (please specify)",
-      "order":4,
+      "order":5,
       "required":true,
       "helper_text":"",
       "visible_byfield":"profession",
@@ -41,7 +52,7 @@
     {
       "name": "primary_place_of_work",
       "label": "Primary place of work",
-      "order": 5,
+      "order": 6,
       "required":true,
       "helper_text": "",
       "type": "choices",
@@ -49,29 +60,27 @@
     },
     {
       "name":"name_of_work_place",
-      "label":"Name of health facility or organization",
-      "order":6,
+      "label":"Name of health facility, organization, or institution where you work",
+      "order":7,
       "required":false,
-      "helper_text":"Name of health facility, organization, or institution where you work",
+      "helper_text":"Institution where you work",
       "visible_byfield":"primary_place_of_work",
       "visible_byvalue":"!not_currently_working",
       "type":"str"
     },
     {
       "name":"describe_area_of_work",
-      "label":"Which best describes the area where you work?",
-      "order":7,
+      "label":"Which best describes the area where you work or study (or reside if you’re currently not working)?",
+      "order":8,
       "required":true,
-      "helper_text":"Area where you work",
-      "visible_byfield":"primary_place_of_work",
-      "visible_byvalue":"!not_currently_working",
+      "helper_text":"Area where you work or study or reside",
       "collection":"area",
       "type":"choices"
     },
     {
       "name":"gender",
       "label":"Gender",
-      "order":8,
+      "order":9,
       "required":true,
       "helper_text":"",
       "collection":"genders",
@@ -86,7 +95,8 @@
         {"id": "central", "value": "Central"},
         {"id": "western", "value": "western"},
         {"id": "eastern", "value": "Eastern"},
-        {"id": "northern", "value": "Northern"}
+        {"id": "northern", "value": "Northern"},
+        {"id": "other_region", "value": "Other(Specify country)"}
       ]
     },
     {
@@ -226,11 +236,14 @@
       "items": [
         {"id": "community_health_worker", "value": "Community Health Worker"},
         {"id": "environment_health_officer", "value": "Environment Health Officer"},
-        {"id": "health_officer", "value": "Health Officer"},
-        {"id": "laboratory_officer", "value": "Laboratory Officer"},
+        {"id": "laboratory_technologist", "value": "Laboratory technologist"},
+        {"id": "laboratory_technician_assistant ", "value": "Laboratory Technician/ Assistant"},
+        {"id": "medical_clinical_officer", "value": "Medical Clinical Officer"},
         {"id": "midwife", "value": "Midwife"},
         {"id": "nurse", "value": "Nurse"},
         {"id": "pharmacist", "value": "Pharmacist"},
+        {"id": "pharmacy_technician", "value": "Pharmacy Technician"},
+        {"id": "dispenser", "value": "Dispenser"},
         {"id": "medical_doctor", "value": "Medical Doctor (General or Specialist)"},
         {"id": "program_manager_or_implementer", "value": "Program Manager Or Implementer"},
         {"id": "public_health_officer", "value": "Public Health Officer"},
@@ -239,25 +252,25 @@
         {"id": "student_other_non_health_field", "value": "Student - other non-health field"},
         {"id": "other_health_care_provider", "value": "Other Health Care Provider"},
         {"id": "other_public_health_professional", "value": "Other Public Health Professional"},
-        {"id": "other_specify", "value": "Other (please specify):"},
-        {"id": "none", "value": "None"}
+        {"id": "non_health_professional", "value": "Non-health professional"},
+        {"id": "other_specify", "value": "Other(please specify):"}
       ]
     },
     {
       "collection_name": "primary_places_of_work",
       "items": [
-        {"id": "academic_institution", "value": "Academic Institution"},
-        {"id": "civil_society_organization", "value": "Civil Society Organization"},
-        {"id": "community", "value": "Community"},
-        {"id": "government_office", "value": "Government Office"},
-        {"id": "health_center", "value": "Health Center"},
-        {"id": "health_post", "value": "Health Post"},
         {"id": "hospital", "value": "Hospital"},
+        {"id": "health_center", "value": "Health Center (II, III or IV)"},
+        {"id": "community_based", "value": "Community Based (Health Center I)"},
+        {"id": "private_clinic_medical_center", "value": "Private Clinic or Medical Center"},
+        {"id": "privately_owned_pharmacy", "value": "Privately owned pharmacy"},
+        {"id": "public_health_laboratory", "value": "Public health laboratory"},
+        {"id": "privately_owned_stand_alone_laboratory", "value": "Privately owned stand-alone laboratory"},
+        {"id": "academic_institution", "value": "Academic institution"},
+        {"id": "civil_society_organization", "value": "Civil Society Organization"},
+        {"id": "government_office", "value": "Government Office"},
         {"id": "intergovernmental_organization", "value": "Intergovernmental Organization"},
-        {"id": "laboratory", "value": "Laboratory"},
         {"id": "ngo_nonprofit", "value": "NGO / Nonprofit"},
-        {"id": "pharmacy", "value": "Pharmacy"},
-        {"id": "private_clinic", "value": "Private Clinic"},
         {"id": "research_institution", "value": "Research Institution"},
         {"id": "self_employed", "value": "Self-employed"},
         {"id": "other_public_government_institution", "value": "Other Public/Government Institution"},
@@ -268,9 +281,11 @@
     {
       "collection_name": "area",
       "items" : [
-        {"id": "urban", "value":"Urban"},
-        {"id": "peri_urban", "value":"Peri-urban / Suburban"},
-        {"id": "rural", "value":"Rural"}
+        {"id": "city_division", "value":"City Division"},
+        {"id": "municipal_ward", "value":"Municipal Ward"},
+        {"id": "town_council", "value":"Town Council"},
+        {"id": "sub_county", "value":"Sub-County"},
+        {"id": "island", "value":"Island(s)"}
       ]
     },
     {
@@ -285,12 +300,20 @@
   "register_steps": [
     {
       "order": 1,
-      "title":"First step",
-      "helper_text":"Please enter your user details and press on the \"Next\" button.",
+      "title":"Login info",
+      "helper_text":"Please enter your login info and press on the \"Next\" button.",
       "fields":[
         "username",
         "password",
-        "passwordagain",
+        "passwordagain"
+      ]
+    },
+
+    {
+      "order": 1,
+      "title":"First step",
+      "helper_text":"Please enter your user details and press on the \"Next\" button.",
+      "fields":[
         "email",
         "first_name",
         "last_name",
@@ -301,16 +324,17 @@
     {
       "order": 2,
       "title":"Region and District",
-      "helper_text":"Please select your region and District",
+      "helper_text":"Please select your Region and District",
       "fields":[
         "region",
+        "region_other",
         "district"
       ]
     },
     {
       "order": 3,
-      "title":"Proffesional Information",
-      "helper_text":"Please select your proffestion, job title and work place",
+      "title":"Professional Information",
+      "helper_text":"Please select your profession, job title and work place",
       "fields":[
         "profession",
         "profession_other",
