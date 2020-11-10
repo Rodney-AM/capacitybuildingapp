@@ -12,7 +12,7 @@
     },
     {
       "name":"region_other",
-      "label":"Region - Other(Specify country)",
+      "label":"Outside Uganda (Specify Country)",
       "order":2,
       "required":true,
       "helper_text":"",
@@ -96,7 +96,7 @@
         {"id": "western", "value": "western"},
         {"id": "eastern", "value": "Eastern"},
         {"id": "northern", "value": "Northern"},
-        {"id": "other_region", "value": "Other(Specify country)"}
+        {"id": "other_region", "value": "Outside Uganda (Specify Country)"}
       ]
     },
     {
@@ -324,7 +324,7 @@
     {
       "order": 2,
       "title":"Region and District",
-      "helper_text":"Please select your Region and District",
+      "helper_text":"Please select your Region and District and press on the \"Next\" button.",
       "fields":[
         "region",
         "region_other",
@@ -334,7 +334,7 @@
     {
       "order": 3,
       "title":"Professional Information",
-      "helper_text":"Please select your profession, job title and work place",
+      "helper_text":"Please select your Profession and Primary place of work",
       "fields":[
         "profession",
         "profession_other",
