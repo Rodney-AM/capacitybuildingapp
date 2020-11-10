@@ -310,9 +310,9 @@
     },
 
     {
-      "order": 1,
-      "title":"First step",
-      "helper_text":"Please enter your user details and press on the \"Next\" button.",
+      "order": 2,
+      "title":"Extra data",
+      "helper_text":"Please fill the additional personal info and press on the \"Next\" button.",
       "fields":[
         "email",
         "first_name",
@@ -322,7 +322,7 @@
       ]
     },
     {
-      "order": 2,
+      "order": 3,
       "title":"Region and District",
       "helper_text":"Please select your Region and District and press on the \"Next\" button.",
       "fields":[
@@ -332,7 +332,7 @@
       ]
     },
     {
-      "order": 3,
+      "order": 4,
       "title":"Professional Information",
       "helper_text":"Please select your Profession and Primary place of work",
       "fields":[
