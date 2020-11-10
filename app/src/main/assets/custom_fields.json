@@ -314,9 +314,9 @@
       "title":"Extra data",
       "helper_text":"Please fill the additional personal info and press on the \"Next\" button.",
       "fields":[
-        "email",
         "first_name",
         "last_name",
+        "email",
         "phoneno",
         "gender"
       ]
