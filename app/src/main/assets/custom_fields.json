@@ -85,7 +85,36 @@
       "helper_text":"",
       "collection":"genders",
       "type":"choices"
+    },
+    {
+      "name":"age_group",
+      "label":"Age Group",
+      "order":10,
+      "required":true,
+      "helper_text":"",
+      "collection":"ages",
+      "type":"choices"
+    },
+    {
+      "name":"referrer",
+      "label":"How did you hear about the app?",
+      "order":11,
+      "required":true,
+      "helper_text":"",
+      "collection":"referrers",
+      "type":"choices"
+    },
+    {
+      "name":"referrer_other",
+      "label":"How did you hear about the app? (Specify)",
+      "order":12,
+      "required":true,
+      "helper_text":"",
+      "visible_byfield":"referrer",
+      "visible_byvalue":"other_specify",
+      "type":"str"
     }
+
   ],
 
   "collections": [
@@ -295,8 +324,31 @@
         {"id": "male", "value":"Male"},
         {"id": "Prefer_not_to_say", "value": "Prefer not to say"}
       ]
+    },
+    {
+      "collection_name": "ages",
+      "items": [
+        {"id": "under_25", "value":"Under 25"},
+        {"id": "25_to_39", "value":"25 - 39"},
+        {"id": "40_to_59", "value": "40 - 59"},
+        {"id": "60_plus", "value":"60+"},
+        {"id": "Prefer_not_to_say", "value": "Prefer not to say"}
+      ]
+    },
+    {
+      "collection_name": "referrers",
+      "items": [
+        {"id": "lmh", "value":"Last Mile Health / Community Health Academy"},
+        {"id": "moh", "value":"Ministry of Health"},
+        {"id": "media", "value": "Media (e.g. news article, blog)"},
+        {"id": "social_media", "value":"Social media (e.g. Facebook, Twitter)"},
+        {"id": "recommended_by_employer", "value": "Recommended by my employer or instructor"},
+        {"id": "recommended_by_friend", "value": "Recommended by a friend or colleague"},
+        {"id": "other_specify", "value": "Other(please specify):"}
+      ]
     }
   ],
+
   "register_steps": [
     {
       "order": 1,
@@ -340,9 +392,11 @@
         "profession_other",
         "primary_place_of_work",
         "name_of_work_place",
-        "describe_area_of_work"
+        "describe_area_of_work",
+        "age_group",
+        "referrer",
+        "referrer_other"
       ]
     }
-
   ]
 }
