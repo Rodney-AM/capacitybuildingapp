@@ -47,7 +47,7 @@ public class NoCourseDownloadedManager {
             checkSendNoCourseNotification();
       
     }
-    
+
     private void checkSendNoCourseNotification() {
         List<Course> courses = coursesRepository.getCourses(context);
         if (courses.size() < App.DOWNLOAD_COURSES_DISPLAY){
