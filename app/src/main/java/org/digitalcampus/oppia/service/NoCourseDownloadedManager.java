@@ -44,18 +44,10 @@ public class NoCourseDownloadedManager {
 
     public void checkNoCoursesNotification() {
 
-        if (isUserLoggedIn()) {
             checkSendNoCourseNotification();
-        } else {
-            Log.i(TAG, "startWork: user not logged in. exiting NoCourseDownloadWorker");
-        }
+
     }
-
-    private boolean isUserLoggedIn() {
-        return user != null && !TextUtils.isEmpty(user.getUsername());
-    }
-
-
+    
     private void checkSendNoCourseNotification() {
         List<Course> courses = coursesRepository.getCourses(context);
         if (courses.size() < App.DOWNLOAD_COURSES_DISPLAY){
