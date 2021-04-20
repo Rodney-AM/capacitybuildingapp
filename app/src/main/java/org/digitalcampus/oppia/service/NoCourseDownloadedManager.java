@@ -43,9 +43,9 @@ public class NoCourseDownloadedManager {
     }
 
     public void checkNoCoursesNotification() {
-
+    
             checkSendNoCourseNotification();
-
+      
     }
     
     private void checkSendNoCourseNotification() {
