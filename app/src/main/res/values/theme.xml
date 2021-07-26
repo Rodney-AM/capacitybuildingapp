@@ -25,9 +25,9 @@
     <color name="theme_dark">@color/cha_purple_dark</color>
 
     <!-- Toolbar -->
-    <color name="toolbar_bg_color">@color/theme_primary</color>
-    <color name="toolbar_text_color">@color/text_dark</color>
-    <color name="toolbar_icon_color">@color/text_dark</color>
+    <color name="toolbar_bg_color">@color/black</color>
+    <color name="toolbar_text_color">@color/white</color>
+    <color name="toolbar_icon_color">@color/white</color>
     <color name="statusbar_color">@color/theme_primary</color>
 
     <!-- Subtitle bar -->
