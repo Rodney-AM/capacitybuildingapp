@@ -1,10 +1,14 @@
 package androidTestFiles.Utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import org.digitalcampus.mobile.learning.BuildConfig;
+import org.digitalcampus.mobile.learning.R;
 import org.digitalcampus.oppia.application.SessionManager;
 import org.digitalcampus.oppia.database.DbHelper;
 import org.digitalcampus.oppia.listener.InstallCourseListener;
@@ -151,7 +155,6 @@ public class CourseUtils {
             @Override
             public void installProgressUpdate(DownloadProgress dp) {
                 Log.d(TAG, "Course installation progress: " + dp.getProgress());
-
             }
         });
         imTask.execute();
@@ -163,6 +166,40 @@ public class CourseUtils {
         }
 
         return response[0];
+    }
+
+
+    public static Uri.Builder getBaseUriBuilder() {
+
+        String serverHost = InstrumentationRegistry.getInstrumentation()
+                .getTargetContext().getString(R.string.oppiaServerHost);
+
+        return new Uri.Builder()
+                .scheme("https")
+                .authority(serverHost)
+                .appendPath("view");
+    }
+
+    public static Intent getIntentForDigest(String digest) {
+
+        Uri uri = getBaseUriBuilder()
+                .appendQueryParameter("digest", digest)
+                .build();
+
+        Intent startIntent = new Intent(Intent.ACTION_VIEW, uri);
+        startIntent.setPackage(BuildConfig.APPLICATION_ID);
+        return startIntent;
+    }
+
+    public static Intent getIntentForCourse(String courseShortname) {
+
+        Uri uri = getBaseUriBuilder()
+                .appendQueryParameter("course", courseShortname)
+                .build();
+
+        Intent startIntent = new Intent(Intent.ACTION_VIEW, uri);
+        startIntent.setPackage(BuildConfig.APPLICATION_ID);
+        return startIntent;
     }
 
 }

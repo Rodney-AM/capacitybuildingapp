@@ -128,6 +128,7 @@ public class CourseInstall {
 
             db.insertActivities(c.getActivities(courseId));
             db.insertCourseMedia(courseId, c.getCourseMedia());
+            db.clearUnlockedSectionsWithUpdatedPasswords(courseId, c.getSections());
             listener.onInstallProgress(40);
 
             long userId = db.getUserId(SessionManager.getUsername(ctx));
@@ -146,7 +147,7 @@ public class CourseInstall {
                 org.apache.commons.io.FileUtils.copyDirectory(src, new File(dest, src.getName().toLowerCase(Locale.US)));
             } catch (IOException e) {
                 Analytics.logException(e);
-                Log.d(TAG, "Error copying course: ", e);
+                Log.e(TAG, "Error copying course: ", e);
                 FileUtils.cleanUp(tempdir, Storage.getDownloadPath(ctx) + filename);
                 listener.onFail(ctx.getString(R.string.error_installing_course, title));
                 return;
