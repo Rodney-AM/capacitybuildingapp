@@ -366,7 +366,7 @@ public class DownloadActivity extends AppActivity implements APIRequestListener,
             coursesAdapter.notifyDataSetChanged();
             binding.emptyState.setVisibility((courses.isEmpty()) ? View.VISIBLE : View.GONE);
 
-        } catch (Exception e) {
+        } catch (JSONException e) {
             Analytics.logException(e);
             Log.d(TAG, "Error processing response: ", e);
             UIUtils.showAlert(this, R.string.loading, R.string.error_processing_response);
