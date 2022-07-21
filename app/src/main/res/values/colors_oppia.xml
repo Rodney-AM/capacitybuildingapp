@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="oppia_primary">#74B042</color>
-    <color name="oppia_primary_dark">#597725</color>
+    <color name="oppia_primary">#ff0000</color>
+    <color name="oppia_primary_dark">#c20000</color>
 
-    <color name="oppia_secondary">#689e3a</color>
-    <color name="oppia_secondary_light">#9aca3c</color>
+    <color name="oppia_secondary">#2962ff</color>
+    <color name="oppia_secondary_light">#768fff</color>
 
-    <color name="oppia_dark">#495525</color>
+    <color name="oppia_dark">#c20000</color>
 </resources>

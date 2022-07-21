@@ -10,10 +10,10 @@
     <color name="default_text_color">@color/black</color>
 
     <!-- launcher icon drawable -->
-    <item name="app_icon" type="drawable">@drawable/dc_logo</item>
+    <item name="app_icon" type="drawable">@drawable/ic_launcher</item>
     <!-- Drawables for brand icon and course default image -->
-    <item name="brand_icon" type="drawable">@drawable/dc_logo</item>
-    <item name="course_icon_placeholder" type="drawable">@drawable/default_course</item>
+    <item name="brand_icon" type="drawable">@drawable/ic_launcher</item>
+    <item name="course_icon_placeholder" type="drawable">@drawable/ic_launcher</item>
 
     <!-- Color used for dropdown menus and list tints, it is "theme_secondary_light" with transparency -->
     <color name="theme_focus_semitransparent">#cc9aca3c</color> <!-- added 80%(CC) transparency -->
