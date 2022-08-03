@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "org.cinemel.capacitybuilding.app",
+  "variantName": "normalDebug",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 101,
+      "versionName": "7.3.11-cenimel-1.int",
+      "outputFile": "app-normal-debug.apk"
+    }
+  ],
+  "elementType": "File"
+}
