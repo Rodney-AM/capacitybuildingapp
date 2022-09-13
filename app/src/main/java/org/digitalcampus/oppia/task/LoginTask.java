@@ -40,7 +40,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -73,8 +72,6 @@ public class LoginTask extends APIRequestTask<User, Object, EntityResult<User>> 
                     localUser.getPasswordEncrypted().equals(user.getPasswordEncrypted())){
 				result.setSuccess(true);
 				result.setResultMessage(ctx.getString(R.string.login_complete));
-
-                updateLoggedUserCohorts(localUser);
 				return result;
 			}
 		} catch (UserNotFoundException unfe) {
@@ -102,8 +99,7 @@ public class LoginTask extends APIRequestTask<User, Object, EntityResult<User>> 
                 setPointsAndBadges(jsonResp, user);
                 setPointsAndBadgesEnabled(jsonResp, user);
                 setMetaData(jsonResp);
-                JSONArray cohortsJson = jsonResp.getJSONArray("cohorts");
-                setCohorts(cohortsJson, user);
+                setCohorts(jsonResp, user);
                 DbHelper.getInstance(ctx).addOrUpdateUser(user);
                 result.setSuccess(true);
                 result.setResultMessage(ctx.getString(R.string.login_complete));
@@ -140,17 +136,17 @@ public class LoginTask extends APIRequestTask<User, Object, EntityResult<User>> 
 	}
 
 	private void setUserFields(JSONObject json, User u) throws JSONException {
-        u.setApiKey(json.getString("api_key"));
-        u.setFirstname(json.getString("first_name"));
-        u.setLastname(json.getString("last_name"));
-        if (json.has("email")){
-            u.setEmail(json.getString("email"));
+        u.setApiKey(json.getString(User.API_KEY));
+        u.setFirstname(json.getString(User.FIRST_NAME));
+        u.setLastname(json.getString(User.LAST_NAME));
+        if (json.has(User.EMAIL)){
+            u.setEmail(json.getString(User.EMAIL));
         }
-        if (json.has("organisation")){
-            u.setOrganisation(json.getString("organisation"));
+        if (json.has(User.ORGANISATION)){
+            u.setOrganisation(json.getString(User.ORGANISATION));
         }
-        if (json.has("job_title")){
-            u.setJobTitle(json.getString("job_title"));
+        if (json.has(User.JOB_TITLE)){
+            u.setJobTitle(json.getString(User.JOB_TITLE));
         }
     }
 
@@ -181,8 +177,8 @@ public class LoginTask extends APIRequestTask<User, Object, EntityResult<User>> 
 
 	private void setPointsAndBadges(JSONObject jsonResp, User u){
         try {
-            u.setPoints(jsonResp.getInt("points"));
-            u.setBadges(jsonResp.getInt("badges"));
+            u.setPoints(jsonResp.getInt(User.POINTS));
+            u.setBadges(jsonResp.getInt(User.BADGES));
         } catch (JSONException e){
             u.setPoints(0);
             u.setBadges(0);
@@ -191,8 +187,8 @@ public class LoginTask extends APIRequestTask<User, Object, EntityResult<User>> 
 
     private void setPointsAndBadgesEnabled(JSONObject jsonResp, User u){
         try {
-            u.setScoringEnabled(jsonResp.getBoolean("scoring"));
-            u.setBadgingEnabled(jsonResp.getBoolean("badging"));
+            u.setScoringEnabled(jsonResp.getBoolean(User.BADGING_ENABLED));
+            u.setBadgingEnabled(jsonResp.getBoolean(User.BADGING_ENABLED));
         } catch (JSONException e){
             u.setScoringEnabled(true);
             u.setBadgingEnabled(true);
@@ -210,12 +206,11 @@ public class LoginTask extends APIRequestTask<User, Object, EntityResult<User>> 
         }
     }
 
-    private void setCohorts(JSONArray cohortsJson, User u) throws JSONException{
-        List<Integer> cohorts = new ArrayList<>();
-        for (int i = 0; i < cohortsJson.length(); i++) {
-            cohorts.add(cohortsJson.getInt(i));
+    private void setCohorts(JSONObject jsonResp, User u) throws JSONException{
+        if (jsonResp.has(User.COHORTS)){
+            JSONArray cohortsJson = jsonResp.getJSONArray(User.COHORTS);
+            u.setCohortsFromJSONArray(cohortsJson);
         }
-        u.setCohorts(cohorts);
     }
 
 	@Override
@@ -230,25 +225,6 @@ public class LoginTask extends APIRequestTask<User, Object, EntityResult<User>> 
 	public void setLoginListener(SubmitEntityListener srl) {
         synchronized (this) {
             mStateListener = srl;
-        }
-    }
-
-    private void updateLoggedUserCohorts(User localUser){
-        try {
-            OkHttpClient client = HTTPClientUtils.getClient(ctx);
-            String url = apiEndpoint.getFullURL(ctx, Paths.USER_COHORTS_PATH);
-            Request request = new Request.Builder()
-                    .url(HTTPClientUtils.getUrlWithCredentials(url, localUser.getUsername(), localUser.getApiKey()))
-                    .build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                JSONArray cohortsJson = new JSONArray(response.body().string());
-                setCohorts(cohortsJson, localUser);
-                DbHelper.getInstance(ctx).addOrUpdateUser(localUser);
-
-            }
-        } catch (JSONException | IOException e) {
-            Log.w(TAG, "Unable to update user cohorts: ", e);
         }
     }
 
