@@ -1,36 +1,370 @@
 {
-  "fields": [],
-  "required_fields": ["email"],
-  "collections": [],
-  "register_steps": [
+  "fields": [
     {
-      "order": 1,
-      "title":"First step",
-      "helper_text":"Please enter a username and your name",
-      "fields":[
-        "username",
-        "first_name",
-        "last_name"
+      "name":"gender",
+      "label":"Gender",
+      "order":1,
+      "required":true,
+      "helper_text":"",
+      "collection":"genders",
+      "type":"choices"
+    },
+    {
+    "name": "region",
+    "label": "Region",
+    "required":true,
+    "order": 2,
+    "required":true,
+    "helper_text": "",
+    "type": "choices",
+    "collection": "regions"
+    },
+    {
+      "name":"region_other",
+      "label":"Outside Uganda (Specify Country)",
+      "order":3,
+      "required":true,
+      "helper_text":"",
+      "visible_byfield":"region",
+      "visible_byvalue":"other_region",
+      "type":"str"
+    },
+    {
+      "name": "district",
+      "label": "District",
+      "order": 4,
+      "required":false,
+      "visible_byfield":"region",
+      "collection_byfield":"region",
+      "visible_byvalue":"!other_region",
+      "type":"choices"
+    },
+    {
+      "name": "profession",
+      "label": "Profession",
+      "order": 5,
+      "required":true,
+      "helper_text": "",
+      "type": "choices",
+      "collection": "professions"
+    },
+    {
+      "name":"profession_other",
+      "label":"Profession - Other (please specify)",
+      "order":6,
+      "required":true,
+      "helper_text":"",
+      "visible_byfield":"profession",
+      "visible_byvalue":"other_specify",
+      "type":"str"
+    },
+    {
+      "name": "primary_place_of_work",
+      "label": "Primary place of work",
+      "order": 7,
+      "required":true,
+      "helper_text": "",
+      "type": "choices",
+      "collection": "primary_places_of_work"
+    },
+    {
+      "name":"age_group",
+      "label":"Age Group",
+      "order":8,
+      "required":true,
+      "helper_text":"",
+      "collection":"ages",
+      "type":"choices"
+    },
+    {
+      "name":"referrer",
+      "label":"How did you hear about the app?",
+      "order":9,
+      "required":true,
+      "helper_text":"",
+      "collection":"referrers",
+      "type":"choices"
+    },
+    {
+      "name":"referrer_other",
+      "label":"How did you hear about the app? (Specify)",
+      "order":10,
+      "required":true,
+      "helper_text":"",
+      "visible_byfield":"referrer",
+      "visible_byvalue":"other_specify",
+      "type":"str"
+    }
+  ],
+  "collections": [
+    {
+      "collection_name": "referrers",
+      "items": [
+        {"id": "moh", "value":"Ministry of Health"},
+        {"id": "media", "value": "Media (e.g. news article, blog)"},
+        {"id": "social_media", "value":"Social media (e.g. Facebook, Twitter)"},
+        {"id": "recommended_by_employer", "value": "Recommended by my employer or instructor"},
+        {"id": "recommended_by_friend", "value": "Recommended by a friend or colleague"},
+        {"id": "other_specify", "value": "Other(please specify):"}
       ]
     },
     {
-      "order": 2,
-      "title":"Second step",
-      "helper_text":"Please enter a password",
+      "collection_name": "genders",
+      "items": [
+        {"id": "female", "value":"Female"},
+        {"id": "male", "value":"Male"},
+        {"id": "Prefer_not_to_say", "value": "Prefer not to say"}
+      ]
+    },
+    {
+      "collection_name": "ages",
+      "items": [
+        {"id": "under_25", "value":"Under 25"},
+        {"id": "25_to_39", "value":"25 - 39"},
+        {"id": "40_to_59", "value": "40 - 59"},
+        {"id": "60_plus", "value":"60+"},
+        {"id": "Prefer_not_to_say", "value": "Prefer not to say"}
+      ]
+    },
+    {
+      "collection_name": "professions",
+      "items": [
+        {"id": "community_health_worker", "value": "Community Health Worker"},
+        {"id": "environment_health_officer", "value": "Environment Health Officer"},
+        {"id": "laboratory_technologist", "value": "Laboratory technologist"},
+        {"id": "laboratory_technician_assistant ", "value": "Laboratory Technician/ Assistant"},
+        {"id": "medical_clinical_officer", "value": "Medical Clinical Officer"},
+        {"id": "midwife", "value": "Midwife"},
+        {"id": "nurse", "value": "Nurse"},
+        {"id": "pharmacist", "value": "Pharmacist"},
+        {"id": "pharmacy_technician", "value": "Pharmacy Technician"},
+        {"id": "dispenser", "value": "Dispenser"},
+        {"id": "medical_doctor", "value": "Medical Doctor (General or Specialist)"},
+        {"id": "program_manager_or_implementer", "value": "Program Manager Or Implementer"},
+        {"id": "public_health_officer", "value": "Public Health Officer"},
+        {"id": "researcher", "value": "Researcher"},
+        {"id": "student_medical_or_health_filed", "value": "Student - studying in medical or health field"},
+        {"id": "student_other_non_health_field", "value": "Student - other non-health field"},
+        {"id": "other_health_care_provider", "value": "Other Health Care Provider"},
+        {"id": "other_public_health_professional", "value": "Other Public Health Professional"},
+        {"id": "non_health_professional", "value": "Non-health professional"},
+        {"id": "other_specify", "value": "Other(please specify):"}
+      ]
+    },
+    {
+      "collection_name": "primary_places_of_work",
+      "items": [
+        {"id": "hospital", "value": "Hospital"},
+        {"id": "health_center_II", "value": "Health Center II"},
+        {"id": "health_center_III", "value": "Health Center III"},
+        {"id": "health_center_IV", "value": "Health Center IV"},
+        {"id": "community_based", "value": "Community Based (Health Center I)"},
+        {"id": "private_clinic_medical_center", "value": "Private Clinic or Medical Center"},
+        {"id": "privately_owned_pharmacy", "value": "Privately owned pharmacy"},
+        {"id": "public_health_laboratory", "value": "Public health laboratory"},
+        {"id": "privately_owned_stand_alone_laboratory", "value": "Privately owned stand-alone laboratory"},
+        {"id": "academic_institution", "value": "Academic institution"},
+        {"id": "civil_society_organization", "value": "Civil Society Organization"},
+        {"id": "government_office", "value": "Government Office"},
+        {"id": "intergovernmental_organization", "value": "Intergovernmental Organization"},
+        {"id": "ngo_nonprofit", "value": "NGO / Nonprofit"},
+        {"id": "research_institution", "value": "Research Institution"},
+        {"id": "self_employed", "value": "Self-employed"},
+        {"id": "other_public_government_institution", "value": "Other Public/Government Institution"},
+        {"id": "other_private_sector_institution_company", "value": "Other Private Sector Institution/Company"},
+        {"id": "not_currently_working", "value": "Not Currently Working (e.g. unemployed, retired)"}
+      ]
+    },
+    {
+      "collection_name": "regions",
+      "items": [
+        {"id": "central", "value": "Central"},
+        {"id": "western", "value": "Western"},
+        {"id": "eastern", "value": "Eastern"},
+        {"id": "northern", "value": "Northern"},
+        {"id": "other_region", "value": "Outside Uganda (Specify Country)"}
+      ]
+    },
+    {
+      "collection_name": "central",
+      "items": [
+        {"id": "buikwe", "value": "Buikwe"},
+        {"id": "bukomansimbi", "value": "Bukomansimbi"},
+        {"id": "butambala", "value": "Butambala"},
+        {"id": "buvuma", "value": "Buvuma"},
+        {"id": "gomba", "value": "Gomba"},
+        {"id": "kalangala", "value": "Kalangala"},
+        {"id": "kalungu", "value": "Kalungu"},
+        {"id": "kampala", "value": "Kampala"},
+        {"id": "kayunga", "value": "Kayunga"},
+        {"id": "kiboga", "value": "Kiboga"},
+        {"id": "kyankwanzi", "value": "Kyankwanzi"},
+        {"id": "kyotera", "value": "Kyotera"},
+        {"id": "luweero", "value": "Luweero"},
+        {"id": "lwengo", "value": "Lwengo"},
+        {"id": "lyantonde", "value": "Lyantonde"},
+        {"id": "masaka", "value": "Masaka"},
+        {"id": "mityana", "value": "Mityana"},
+        {"id": "mpigi", "value": "Mpigi"},
+        {"id": "mubende", "value": "Mubende"},
+        {"id": "mukono", "value": "Mukono"},
+        {"id": "nakaseke", "value": "Nakaseke"},
+        {"id": "nakasongola", "value": "Nakasongola"},
+        {"id": "rakai", "value": "Rakai"},
+        {"id": "sembabule", "value": "Sembabule"},
+        {"id": "wakiso", "value": "Wakiso"}
+      ]
+    },
+    {
+      "collection_name": "western",
+      "items": [
+        {"id": "buhweju", "value": "Buhweju"},
+        {"id": "buliisa", "value": "Buliisa"},
+        {"id": "bundibugyo", "value": "Bundibugyo"},
+        {"id": "bushenyi", "value": "Bushenyi"},
+        {"id": "hoima", "value": "Hoima"},
+        {"id": "ibanda", "value": "Ibanda"},
+        {"id": "isingiro", "value": "Isingiro"},
+        {"id": "kabale", "value": "Kabale"},
+        {"id": "kabarole", "value": "Kabarole"},
+        {"id": "kamwenge", "value": "Kamwenge"},
+        {"id": "kanungu", "value": "Kanungu"},
+        {"id": "kasese", "value": "Kasese"},
+        {"id": "kazo", "value": "Kazo"},
+        {"id": "kibaale", "value": "Kibaale"},
+        {"id": "kiruhura", "value": "Kiruhura"},
+        {"id": "kiryandongo", "value": "Kiryandongo"},
+        {"id": "kisoro", "value": "Kisoro"},
+        {"id": "kyegegwa", "value": "Kyegegwa"},
+        {"id": "kyenjojo", "value": "Kyenjojo"},
+        {"id": "masindi", "value": "Masindi"},
+        {"id": "mbarara", "value": "Mbarara"},
+        {"id": "mitooma", "value": "Mitooma"},
+        {"id": "ntoroko", "value": "Ntoroko"},
+        {"id": "ntungamo", "value": "Ntungamo"},
+        {"id": "rubirizi", "value": "Rubirizi"},
+        {"id": "rukungiri", "value": "Rukungiri"},
+        {"id": "sheema", "value": "Sheema"}
+      ]
+    },
+    {
+      "collection_name": "eastern",
+      "items": [
+        {"id": "amuria", "value": "Amuria"},
+        {"id": "budaka", "value": "Budaka"},
+        {"id": "bududa", "value": "Bududa"},
+        {"id": "bugiri", "value": "Bugiri"},
+        {"id": "bukedea", "value": "Bukedea"},
+        {"id": "bukwa", "value": "Bukwa"},
+        {"id": "bulambuli", "value": "Bulambuli"},
+        {"id": "busia", "value": "Busia"},
+        {"id": "butaleja", "value": "Butaleja"},
+        {"id": "buyende", "value": "Buyende"},
+        {"id": "iganga", "value": "Iganga"},
+        {"id": "jinja", "value": "Jinja"},
+        {"id": "kaberamaido", "value": "Kaberamaido"},
+        {"id": "kaliro", "value": "Kaliro"},
+        {"id": "kamuli", "value": "Kamuli"},
+        {"id": "kapchorwa", "value": "Kapchorwa"},
+        {"id": "katakwi", "value": "Katakwi"},
+        {"id": "kibuku", "value": "Kibuku"},
+        {"id": "kumi", "value": "Kumi"},
+        {"id": "kween", "value": "Kween"},
+        {"id": "luuka", "value": "Luuka"},
+        {"id": "manafwa", "value": "Manafwa"},
+        {"id": "mayuge", "value": "Mayuge"},
+        {"id": "mbale", "value": "Mbale"},
+        {"id": "namayingo", "value": "Namayingo"},
+        {"id": "namisindwa", "value": "Namisindwa"},
+        {"id": "namutumba", "value": "Namutumba"},
+        {"id": "ngora", "value": "Ngora"},
+        {"id": "pallisa", "value": "Pallisa"},
+        {"id": "serere", "value": "Serere"},
+        {"id": "sironko", "value": "Sironko"},
+        {"id": "soroti", "value": "Soroti"},
+        {"id": "tororo", "value": "Tororo"}
+      ]
+    },
+    {
+      "collection_name": "northern",
+      "items": [
+        {"id": "abim", "value": "Abim"},
+        {"id": "adjumani", "value": "Adjumani"},
+        {"id": "agago", "value": "Agago"},
+        {"id": "alebtong", "value": "Alebtong"},
+        {"id": "amolatar", "value": "Amolatar"},
+        {"id": "amudat", "value": "Amudat"},
+        {"id": "amuru", "value": "Amuru"},
+        {"id": "apac", "value": "Apac"},
+        {"id": "arua", "value": "Arua"},
+        {"id": "dokolo", "value": "Dokolo"},
+        {"id": "gulu", "value": "Gulu"},
+        {"id": "kaabong", "value": "Kaabong"},
+        {"id": "kitgum", "value": "Kitgum"},
+        {"id": "koboko", "value": "Koboko"},
+        {"id": "kole", "value": "Kole"},
+        {"id": "kotido", "value": "Kotido"},
+        {"id": "lamwo", "value": "Lamwo"},
+        {"id": "lira", "value": "Lira"},
+        {"id": "maracha", "value": "Maracha"},
+        {"id": "moroto", "value": "Moroto"},
+        {"id": "moyo", "value": "Moyo"},
+        {"id": "nakapiripirit", "value": "Nakapiripirit"},
+        {"id": "napak", "value": "Napak"},
+        {"id": "nebbi", "value": "Nebbi"},
+        {"id": "nwoya", "value": "Nwoya"},
+        {"id": "otuke", "value": "Otuke"},
+        {"id": "oyam", "value": "Oyam"},
+        {"id": "pader", "value": "Pader"},
+        {"id": "yumbe", "value": "Yumbe"},
+        {"id": "zombo", "value": "Zombo"}
+      ]
+    }
+  ],
+  "register_steps": [
+    {
+      "order": 1,
+      "title":"Login info",
+      "helper_text":"Please enter your login info and press on the \"Next\" button.",
       "fields":[
+        "username",
         "password",
         "passwordagain"
       ]
     },
     {
-      "order": 3,
-      "title":"Third step",
-      "helper_text":"Please provide some extra contact information",
+      "order": 2,
+      "title":"Personal Information",
+      "helper_text":"Please fill the additional personal info and press on the \"Next\" button.",
       "fields":[
+        "first_name",
+        "last_name",
         "email",
         "phoneno",
-        "organisation",
-        "jobtitle"
+        "gender"
+      ]
+    },
+    {
+      "order": 3,
+      "title":"Region",
+      "helper_text":"Please select your Region and District and press on the \"Next\" button.",
+      "fields" : [
+        "region",
+        "region_other",
+        "district"
+      ]
+    },
+    {
+      "order": 4,
+      "title":"Professional Information",
+      "helper_text":"Please select your Profession and Primary place of work",
+      "fields":[
+        "profession",
+        "profession_other",
+        "primary_place_of_work",
+        "age_group",
+        "referrer",
+        "referrer_other"
       ]
     }
   ]
