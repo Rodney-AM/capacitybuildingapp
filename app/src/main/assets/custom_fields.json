@@ -68,6 +68,16 @@
       "collection": "primary_places_of_work"
     },
     {
+      "name":"name_of_work_place",
+      "label":"Name of health facility, organization, or institution where you work",
+      "order":7,
+      "required":false,
+      "helper_text":"Institution where you work",
+      "visible_byfield":"primary_place_of_work",
+      "visible_byvalue":"!not_currently_working",
+      "type":"str"
+    },
+    {
       "name":"age_group",
       "label":"Age Group",
       "order":8,
@@ -341,7 +351,8 @@
         "last_name",
         "email",
         "phoneno",
-        "gender"
+        "gender",
+        "age_group"
       ]
     },
     {
@@ -362,7 +373,7 @@
         "profession",
         "profession_other",
         "primary_place_of_work",
-        "age_group",
+        "name_of_work_place",
         "referrer",
         "referrer_other"
       ]
