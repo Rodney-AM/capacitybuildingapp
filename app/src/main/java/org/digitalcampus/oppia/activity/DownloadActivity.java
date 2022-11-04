@@ -55,6 +55,7 @@ import org.digitalcampus.oppia.service.courseinstall.CourseInstallerService;
 import org.digitalcampus.oppia.service.courseinstall.InstallerBroadcastReceiver;
 import org.digitalcampus.oppia.task.result.BasicResult;
 import org.digitalcampus.oppia.utils.MultiChoiceHelper;
+import org.digitalcampus.oppia.utils.TextUtilsJava;
 import org.digitalcampus.oppia.utils.UIUtils;
 import org.digitalcampus.oppia.utils.storage.Storage;
 import org.json.JSONException;
@@ -447,7 +448,7 @@ public class DownloadActivity extends AppActivity implements APIRequestListener,
 
     private boolean isInstalled(CourseInstallViewAdapter courseAdapter, List<Course> installedCourses) {
         for (Course course : installedCourses) {
-            if (TextUtils.equals(course.getShortname(), courseAdapter.getShortname())) {
+            if (TextUtilsJava.equals(course.getShortname(), courseAdapter.getShortname())) {
                 return true;
             }
         }
@@ -520,7 +521,7 @@ public class DownloadActivity extends AppActivity implements APIRequestListener,
 
     private void findCourseAndDownload(Course courseToUpdate) {
         for (CourseInstallViewAdapter course : courses) {
-            if (TextUtils.equals(course.getShortname(), courseToUpdate.getShortname())) {
+            if (TextUtilsJava.equals(course.getShortname(), courseToUpdate.getShortname())) {
                 downloadCourse(course);
             }
         }
