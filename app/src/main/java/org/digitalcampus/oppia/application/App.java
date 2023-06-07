@@ -47,7 +47,7 @@ import org.digitalcampus.oppia.di.DaggerAppComponent;
 import org.digitalcampus.oppia.service.CoursesChecksWorker;
 import org.digitalcampus.oppia.service.CoursesCompletionReminderWorkerManager;
 import org.digitalcampus.oppia.service.TrackerWorker;
-import org.digitalcampus.oppia.service.UserCohortsCheckerWorker;
+import org.digitalcampus.oppia.service.UpdateUserProfileWorker;
 import org.digitalcampus.oppia.utils.TextUtilsJava;
 import org.digitalcampus.oppia.utils.storage.Storage;
 import org.digitalcampus.oppia.utils.storage.StorageAccessStrategy;
@@ -171,15 +171,12 @@ public class App extends Application {
 
     private void configureStorageType() {
 
-        String storageOption = getPrefs(this).getString(PrefsActivity.PREF_STORAGE_OPTION, "");
+        String storageOption = getPrefs(this).getString(PrefsActivity.PREF_STORAGE_OPTION, null);
         if (TextUtilsJava.isEmpty(storageOption)) {
             storageOption = PrefsActivity.STORAGE_OPTION_EXTERNAL;
         }
 
         StorageAccessStrategy strategy = StorageAccessStrategyFactory.createStrategy(storageOption);
-        if (!strategy.isStorageAvailable(this)) {
-            strategy = StorageAccessStrategyFactory.createStrategy(PrefsActivity.STORAGE_OPTION_INTERNAL);
-        }
 
         StorageUtils.saveStorageData(this, strategy.getStorageType());
         Storage.setStorageStrategy(strategy);
@@ -258,7 +255,7 @@ public class App extends Application {
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
 
-        PeriodicWorkRequest userProfileCheckWork = new PeriodicWorkRequest.Builder(UserCohortsCheckerWorker.class, 12, TimeUnit.HOURS)
+        PeriodicWorkRequest userProfileCheckWork = new PeriodicWorkRequest.Builder(UpdateUserProfileWorker.class, 12, TimeUnit.HOURS)
                 .setConstraints(constraints)
                 .build();
 

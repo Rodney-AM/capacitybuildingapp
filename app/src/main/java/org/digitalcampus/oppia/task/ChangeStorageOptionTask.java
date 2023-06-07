@@ -24,7 +24,6 @@ import android.util.Log;
 import org.digitalcampus.mobile.learning.R;
 import org.digitalcampus.oppia.analytics.Analytics;
 import org.digitalcampus.oppia.listener.MoveStorageListener;
-import org.digitalcampus.oppia.model.DownloadProgress;
 import org.digitalcampus.oppia.task.result.BasicResult;
 import org.digitalcampus.oppia.utils.storage.FileUtils;
 import org.digitalcampus.oppia.utils.storage.Storage;
@@ -60,7 +59,7 @@ public class ChangeStorageOptionTask extends AsyncTask<String, Void, BasicResult
         try {
             Log.d(TAG, "Checking if storage is available...");
             if (!newStrategy.isStorageAvailable(ctx)) {
-                throw new ChangeStorageException(ctx.getString(R.string.error_sdcard));
+                throw new ChangeStorageException(ctx.getString(R.string.sdcard_not_available_change_settings));
             }
 
             Log.d(TAG, "Getting storage sizes...");

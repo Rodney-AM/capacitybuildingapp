@@ -2,6 +2,7 @@ package org.digitalcampus.oppia.fragments.prefs;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import androidx.preference.Preference;
 
 import org.digitalcampus.mobile.learning.R;
 import org.digitalcampus.oppia.activity.AppActivity;
+import org.digitalcampus.oppia.activity.OfflineCourseImportActivity;
 import org.digitalcampus.oppia.activity.PrefsActivity;
 import org.digitalcampus.oppia.api.ApiEndpoint;
 import org.digitalcampus.oppia.api.RemoteApiEndpoint;
@@ -27,7 +29,7 @@ import org.digitalcampus.oppia.database.DbHelper;
 import org.digitalcampus.oppia.exception.UserNotFoundException;
 import org.digitalcampus.oppia.model.User;
 import org.digitalcampus.oppia.task.ExportActivityTask;
-import org.digitalcampus.oppia.task.UpdateUserCohortsTask;
+import org.digitalcampus.oppia.task.FetchUserTask;
 import org.digitalcampus.oppia.utils.ConnectionUtils;
 import org.digitalcampus.oppia.utils.CourseUtils;
 import org.digitalcampus.oppia.utils.TextUtilsJava;
@@ -99,9 +101,10 @@ public class AdvancedPrefsFragment extends BasePreferenceFragment implements Pre
         liveUpdateSummary(PrefsActivity.PREF_STORAGE_OPTION);
         liveUpdateSummary(PrefsActivity.PREF_SERVER_TIMEOUT_CONN, " ms");
         liveUpdateSummary(PrefsActivity.PREF_SERVER_TIMEOUT_RESP, " ms");
-        usernamePref.setSummary(TextUtilsJava.isEmpty(usernamePref.getText()) ?
-                getString(R.string.about_not_logged_in) :
-                getString(R.string.about_logged_in, usernamePref.getText()));
+        boolean userLoggedIn = !TextUtilsJava.isEmpty(usernamePref.getText());
+        usernamePref.setSummary(userLoggedIn ?
+                getString(R.string.about_logged_in, usernamePref.getText()) :
+                getString(R.string.about_not_logged_in));
 
         serverPref.setOnPreferenceChangeListener((preference, newValue) -> {
             boolean mustUpdate = onPreferenceChangedDelegate(preference, newValue);
@@ -141,6 +144,19 @@ public class AdvancedPrefsFragment extends BasePreferenceFragment implements Pre
             return true;
         });
 
+        Preference prefOfflineCourseImport = findPreference(PrefsActivity.PREF_OFFLINE_COURSE_IMPORT);
+        if(userLoggedIn) {
+            prefOfflineCourseImport.setSelectable(true);
+            prefOfflineCourseImport.setOnPreferenceClickListener(preference -> {
+                Intent intent = new Intent(getActivity(), OfflineCourseImportActivity.class);
+                startActivity(intent);
+                return true;
+            });
+        } else {
+            prefOfflineCourseImport.setSelectable(false);
+            prefOfflineCourseImport.setSummary(getString(R.string.about_not_logged_in));
+        }
+
     }
 
     private boolean checkMustShowWarningLogout(String key, String currentValue, String newValue) {
@@ -169,7 +185,7 @@ public class AdvancedPrefsFragment extends BasePreferenceFragment implements Pre
 
     private void flushAppCache() {
         flushCourseListingCache();
-        flushUserCohorts();
+        flushUserProfileInfo();
 
         ((AppActivity) getActivity()).toast(R.string.cache_flushed_successfuly);
     }
@@ -185,10 +201,10 @@ public class AdvancedPrefsFragment extends BasePreferenceFragment implements Pre
         }
     }
 
-    private void flushUserCohorts() {
+    private void flushUserProfileInfo() {
         try {
             User user = DbHelper.getInstance(getContext()).getUser(SessionManager.getUsername(getContext()));
-            new UpdateUserCohortsTask().updateLoggedUserCohorts(getContext(), apiEndpoint, user);
+            new FetchUserTask().updateLoggedUserProfile(getContext(), apiEndpoint, user);
         } catch (UserNotFoundException e) {
             e.printStackTrace();
         }
@@ -383,6 +399,7 @@ public class AdvancedPrefsFragment extends BasePreferenceFragment implements Pre
         } else {
             storagePref.setValue(storageOption);
         }
+        loadPrefs();
     }
 
     private void updateStorageList(Context ctx) {

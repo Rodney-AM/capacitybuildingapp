@@ -21,7 +21,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -163,6 +162,8 @@ public class PrefsActivity extends AppActivity implements SharedPreferences.OnSh
     public static final String PREF_REMINDERS_LOG = "prefRemindersLog";
 
     public static final String PREF_UPDATE_ACTIVITY_ON_LOGIN = "prefUpdateActivityOnLogin";
+
+    public static final String PREF_OFFLINE_COURSE_IMPORT = "prefOfflineCourseImport";
 
     private PreferenceChangedCallback currentPrefScreen;
 

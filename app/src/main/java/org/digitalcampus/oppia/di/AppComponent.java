@@ -9,6 +9,7 @@ import org.digitalcampus.oppia.activity.DownloadActivity;
 import org.digitalcampus.oppia.activity.DownloadMediaActivity;
 import org.digitalcampus.oppia.activity.EditProfileActivity;
 import org.digitalcampus.oppia.activity.MainActivity;
+import org.digitalcampus.oppia.activity.OfflineCourseImportActivity;
 import org.digitalcampus.oppia.activity.PrefsActivity;
 import org.digitalcampus.oppia.activity.QuizAttemptActivity;
 import org.digitalcampus.oppia.activity.StartUpActivity;
@@ -36,7 +37,7 @@ import org.digitalcampus.oppia.fragments.prefs.NotificationsPrefsFragment;
 import org.digitalcampus.oppia.model.User;
 import org.digitalcampus.oppia.service.CoursesChecksWorkerManager;
 import org.digitalcampus.oppia.service.CoursesCompletionReminderWorkerManager;
-import org.digitalcampus.oppia.service.UserCohortsChecksWorkerManager;
+import org.digitalcampus.oppia.service.UpdateUserProfileWorkerManager;
 import org.digitalcampus.oppia.widgets.AnswerWidget;
 
 import javax.inject.Singleton;
@@ -74,6 +75,7 @@ public interface AppComponent {
     void inject(QuizAttemptActivity activity);
     void inject(WelcomeActivity activity);
     void inject(StartUpActivity activity);
+    void inject(OfflineCourseImportActivity activity);
 
     void inject(AdvancedPrefsFragment advancedPrefsFragment);
     void inject(NotificationsPrefsFragment notificationsPrefsFragment);
@@ -91,5 +93,5 @@ public interface AppComponent {
 
     void inject(DBDataMigration dbDataMigration);
 
-    void inject(UserCohortsChecksWorkerManager userCohortsChecksWorkerManager);
+    void inject(UpdateUserProfileWorkerManager updateUserProfileWorkerManager);
 }
