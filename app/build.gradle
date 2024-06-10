@@ -9,7 +9,7 @@ repositories {
 }
 
 def version_code = 112
-def version_name = "7.4.7.ug.1.int"
+def version_name = "7.4.7.cml.1.int"
 
 android {
 
@@ -30,7 +30,7 @@ android {
         versionCode version_code
         versionName version_name
 
-        applicationId "ug.go.health.mobile.covid19"
+        applicationId "com.cenimel.mobile.app"
 
         minSdk 21
         targetSdk 33
