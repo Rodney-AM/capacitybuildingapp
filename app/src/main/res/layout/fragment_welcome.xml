@@ -22,12 +22,12 @@
                 android:id="@+id/imageView13"
                 android:layout_width="80dp"
                 android:layout_height="100dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:layout_gravity="center"
                 android:paddingRight="0dp"
-                app:srcCompat="@drawable/dc_lmh_logo"/>
+                app:srcCompat="@drawable/cinemel_logo" />
             <ImageView
                 android:id="@+id/imageViewLMH"
                 android:layout_width="120dp"
@@ -43,12 +43,12 @@
                 android:id="@+id/imageViewMak"
                 android:layout_width="80dp"
                 android:layout_height="100dp"
+                android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:layout_gravity="center"
                 android:paddingLeft="2dp"
-                app:srcCompat="@drawable/dc_mak_logo" />
+                app:srcCompat="@drawable/cinemel_logo" />
 
         </LinearLayout>
 
